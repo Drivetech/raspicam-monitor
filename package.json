@@ -7,14 +7,11 @@
     "url": "git@github.com:leonciokof/raspicam-monitor.git"
   },
   "scripts": {
-    "start": "babel-node server.js",
-    "client": "babel-node client.js",
-    "server": "npm start",
-    "client-dev": "nodemon --exec npm run client",
-    "server-dev": "nodemon --exec npm run server",
+    "start": "npm run webpack && babel-node index.js",
+    "dev": "npm run webpack && nodemon --exec babel-node index.js",
     "webpack": "webpack"
   },
-  "main": "server.js",
+  "main": "index.js",
   "author": "Leonardo Gatica <lgaticastyle@gmail.com> (https://about.me/leonciokof)",
   "private": true,
   "dependencies": {
