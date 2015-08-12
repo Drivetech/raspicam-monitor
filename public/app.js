@@ -3,7 +3,8 @@
 import domify from "domify"
 import io from "socket.io-client"
 
-const socket = io.connect("http://localhost:5000")
+const host = process.env.SOCKETIO_HOST || "localhost"
+const socket = io.connect(`http://${host}:5000`)
 
 // Evento para iniciar/detener la grabación
 function onClick(event) {
