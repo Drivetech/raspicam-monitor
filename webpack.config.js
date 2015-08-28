@@ -8,6 +8,7 @@ dotenv.load({silent: true})
 
 module.exports = {
   entry: [
+    "bootstrap-webpack!./bootstrap.config.js",
     path.join(__dirname, "public", "app.js")
   ],
   output: {
@@ -23,7 +24,16 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: "babel"}
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bootstrap.config.js)/,
+        loader: "babel"
+      },
+      {test: /\.css$/, loader: "style!css"},
+      {
+        test: /\.(ttf|eot|svg|png|jpg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url"
+      }
     ]
   }
 }

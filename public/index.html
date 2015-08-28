@@ -1,14 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Monitor</title>
   <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+  <style type="text/css">
+    #videoCanvas {
+      /* Always stretch the canvas to 640x480, regardless of its
+      internal size. */
+      width: 640px;
+      height: 480px;
+    }
+    .vjs-fullscreen {padding-top: 0px}
+    .video-js {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .video-js:after {
+        content: '.';
+        display: block;
+        position: relative;
+        padding: 40.1% 0 0 0; /* (height/width)*100%, eg. 56.25% for 16:9 75% for 4:3 */
+        margin: 0 0 0 -100%;
+        visibility: hidden;
+        height: 0;
+    }
+  </style>
 </head>
 <body>
-  <p>Cameras</p>
-  <ul id="cameras"></ul>
-  <p>Videos</p>
-  <ul id="videos"></ul>
+  <div class="container">
+    <h1>Drivetech RPI-monitor</h1>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Camaras</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <ul id="cameras"></ul>
+          </div>
+          <div class="col-md-6">
+            <canvas id="videoCanvas" width="640" height="480" style="display:none">
+              <p>
+                Please use a browser that supports the Canvas Element, like
+                <a href="http://www.google.com/chrome">Chrome</a>,
+                <a href="http://www.mozilla.com/firefox/">Firefox</a>,
+                <a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
+              </p>
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Videos</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <ul id="videos"></ul>
+          </div>
+          <div class="col-md-6">
+            <video id="player" class="video-js vjs-default-skin"
+              controls preload="auto" width="auto" height="auto"
+              data-setup='{"width": "auto", "height": "auto"}'>
+              <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="/bundle.js"></script>
 </body>
 </html>
