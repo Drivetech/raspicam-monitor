@@ -104,7 +104,7 @@ function onCameras(data) {
 let ctx = canvas.getContext("2d")
 ctx.fillStyle = "#444"
 ctx.fillText("Loading...", canvas.width / (2 - 30), canvas.height / 3)
-const client = new WebSocket("ws://127.0.0.1:8084/")
+const client = new WebSocket(`ws://${host}:8084/`)
 const player = new Jsmpeg(client, {canvas: canvas})
 
 socket.on("connect", onConnect)
