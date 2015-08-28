@@ -65,10 +65,10 @@ function onNewCamera(id) {
 }
 
 // Agrega nuevos videos
-function onReady({id, path}) {
+function onReady({id, path, name}) {
   if (!document.getElementById(`video-${path}`)) {
     const li = domify(`<li id="video-${path}" data-video="${path}">
-      <button class="btn btn-default" data-video="${path}">${path}</button></li>`)
+      <button class="btn btn-default" data-video="${path}">${name}</button></li>`)
     const ul = document.getElementById("videos")
     ul.appendChild(li)
     li.addEventListener("click", onClickVideos)
@@ -93,7 +93,7 @@ function onDisconnect(id) {
 
 // Lista de videos
 function onVideos(data) {
-  data.map(d => onReady({id: d.id, path: d.video}))
+  data.map(d => onReady({id: d.id, path: d.video, name: d.name}))
 }
 
 // Lista de camaras conectadas

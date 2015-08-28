@@ -10,6 +10,7 @@ import s3 from "s3"
 export default function tcp (event) {
   const server = net.createServer()
   let ws, filename, filename2
+  const r = /finish/i
 
   const client = s3.createClient({
     maxAsyncS3: 20,
@@ -27,7 +28,7 @@ export default function tcp (event) {
     socket.name = `${socket.remoteAddress}:${socket.remotePort}`
 
     socket.on("data", (data) => {
-      if (data.toString() === "finish") {
+      if (r.test(data.toString())) {
         ws.end()
         let oldfile = filename
         ffmpeg(filename)

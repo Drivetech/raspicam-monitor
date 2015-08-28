@@ -43,7 +43,7 @@ export default function socketio (event) {
           videos = files.map(file => {
             const name = file.split(`/videos/`)[1]
             const dir = path.basename(path.dirname(file))
-            return {id: dir, video: name}
+            return {id: dir, video: name, name: name}
           })
         }
         socket.emit("videos", videos)
@@ -66,7 +66,7 @@ export default function socketio (event) {
     })
 
     event.on("new video", (data) => {
-      io.emit("new video", {id: 1, path: data})
+      io.emit("new video", {id: 1, path: data, name: path.basename(data)})
     })
 
     socket.on("disconnect", () => {
