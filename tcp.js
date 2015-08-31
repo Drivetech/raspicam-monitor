@@ -20,7 +20,8 @@ export default function tcp (event) {
     multipartUploadSize: 15728640,
     s3Options: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      Bucket: process.env.AWS_STORAGE_BUCKET_NAME
     }
   })
 
@@ -54,10 +55,12 @@ export default function tcp (event) {
           })
           uploader.on("end", () => {
             fs.unlink(oldfile, () => {
-              console.log("done uploading")
-              const oname = s3.getPublicUrl(
-                process.env.AWS_STORAGE_BUCKET_NAME, `${id}/${fname}`)
-              event.emit("new video", oname)
+              fs.unlink(filename2, () => {
+                console.log("done uploading")
+                const oname = s3.getPublicUrl(
+                  process.env.AWS_STORAGE_BUCKET_NAME, `${id}/${fname}`)
+                event.emit("new video", oname)
+              })
             })
           })
         })

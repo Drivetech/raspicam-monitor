@@ -4,8 +4,8 @@ import path from "path"
 import fs from "fs"
 
 import mkdirp from "mkdirp"
-import recursive from "recursive-readdir"
 import {Server} from "ws"
+import s3 from "s3"
 
 let streams = {}
 let sockets = {}
@@ -37,18 +37,47 @@ export default function socketio (event) {
     })
 
     socket.on("get all", () => {
-      recursive(path.join(__dirname, "public", "videos"), (err, files) => {
-        let videos = []
-        if (!err) {
-          videos = files.map(file => {
-            const name = file.split(`/videos/`)[1]
-            const dir = path.basename(path.dirname(file))
-            return {id: dir, video: name, name: name}
-          })
+      const client = s3.createClient({
+        maxAsyncS3: 20,
+        s3RetryCount: 3,
+        s3RetryDelay: 1000,
+        multipartUploadThreshold: 20971520,
+        multipartUploadSize: 15728640,
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          Bucket: process.env.AWS_STORAGE_BUCKET_NAME
         }
-        socket.emit("videos", videos)
-        const cameras = Object.keys(sockets).map(i => sockets[i])
-        socket.emit("cameras", cameras)
+      })
+      const stagingparams = {
+        s3Params: {
+          Bucket: process.env.AWS_STORAGE_BUCKET_NAME
+        },
+        recursive: true
+      }
+      const listobj = client.listObjects(stagingparams)
+      let dataLst = []
+      listobj.on("data", (data) => {
+        dataLst = dataLst.concat(data.Contents)
+      })
+      listobj.on("error", (err) => {
+        console.error(err)
+      })
+      listobj.on("end", () => {
+        if (listobj.progressAmount === 1) {
+          dataLst = dataLst.filter(x => x.Key.endsWith(".webm"))
+          dataLst = dataLst.map(x => {
+            return {
+              video: s3.getPublicUrl(
+                process.env.AWS_STORAGE_BUCKET_NAME, x.Key),
+              name: path.basename(x.Key),
+              id: path.dirname(x.Key)
+            }
+          })
+          socket.emit("videos", dataLst)
+          const cameras = Object.keys(sockets).map(i => sockets[i])
+          socket.emit("cameras", cameras)
+        }
       })
     })
 
