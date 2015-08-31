@@ -5,6 +5,7 @@ import fs from "fs"
 
 import mkdirp from "mkdirp"
 import {Server} from "ws"
+import moment from "moment"
 import s3 from "s3"
 
 let streams = {}
@@ -67,10 +68,13 @@ export default function socketio (event) {
         if (listobj.progressAmount === 1) {
           dataLst = dataLst.filter(x => x.Key.endsWith(".webm"))
           dataLst = dataLst.map(x => {
+            const dateName = moment(
+              path.basename(x.Key).replace(".webm", ""),
+              "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
             return {
               video: s3.getPublicUrl(
                 process.env.AWS_STORAGE_BUCKET_NAME, x.Key),
-              name: path.basename(x.Key),
+              name: dateName,
               id: path.dirname(x.Key)
             }
           })
@@ -95,7 +99,13 @@ export default function socketio (event) {
     })
 
     event.on("new video", (data) => {
-      io.emit("new video", {id: 1, path: data, name: path.basename(data)})
+      const dateName = moment(
+        path.basename(data).replace(".webm", ""),
+        "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
+      io.emit("new video", {
+        id: path.basename(path.dirname(data)),
+        path: data,
+        name: dateName})
     })
 
     socket.on("disconnect", () => {
