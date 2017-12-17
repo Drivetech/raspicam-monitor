@@ -20,7 +20,7 @@
     "express": "4.16.2",
     "fluent-ffmpeg": "2.1.2",
     "mkdirp": "0.5.1",
-    "moment": "2.19.4",
+    "moment": "2.20.0",
     "recursive-readdir": "2.2.1",
     "s3": "4.4.0",
     "socket.io": "2.0.4",
