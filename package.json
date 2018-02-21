@@ -35,7 +35,7 @@
     "bootstrap-webpack": "0.0.6",
     "css-loader": "0.28.9",
     "domify": "1.4.0",
-    "file-loader": "1.1.8",
+    "file-loader": "1.1.9",
     "nodemon": "1.15.1",
     "socket.io-client": "2.0.4",
     "style-loader": "0.20.2",
