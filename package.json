@@ -16,7 +16,7 @@
   "author": "Leonardo Gatica <lgaticastyle@gmail.com> (https://about.me/leonciokof)",
   "private": true,
   "dependencies": {
-    "dotenv": "5.0.0",
+    "dotenv": "5.0.1",
     "express": "4.16.2",
     "fluent-ffmpeg": "2.1.2",
     "mkdirp": "0.5.1",
