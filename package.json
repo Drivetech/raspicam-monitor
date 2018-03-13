@@ -36,7 +36,7 @@
     "css-loader": "0.28.10",
     "domify": "1.4.0",
     "file-loader": "1.1.11",
-    "nodemon": "1.17.1",
+    "nodemon": "1.17.2",
     "socket.io-client": "2.0.4",
     "style-loader": "0.20.3",
     "url-loader": "0.6.2",
