@@ -37,7 +37,7 @@
     "domify": "1.4.0",
     "file-loader": "1.1.11",
     "nodemon": "1.17.2",
-    "socket.io-client": "2.0.4",
+    "socket.io-client": "2.1.0",
     "style-loader": "0.20.3",
     "url-loader": "0.6.2",
     "video.js": "6.7.3",
