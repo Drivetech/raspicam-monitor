@@ -23,7 +23,7 @@
     "moment": "2.21.0",
     "recursive-readdir": "2.2.2",
     "s3": "4.4.0",
-    "socket.io": "2.0.4",
+    "socket.io": "2.1.0",
     "uuid": "3.2.1",
     "ws": "4.1.0"
   },
