@@ -38,7 +38,7 @@
     "file-loader": "1.1.11",
     "nodemon": "1.17.3",
     "socket.io-client": "2.1.0",
-    "style-loader": "0.20.3",
+    "style-loader": "0.21.0",
     "url-loader": "0.6.2",
     "video.js": "6.7.3",
     "webpack": "3.11.0"
