@@ -28,7 +28,7 @@
     "ws": "4.1.0"
   },
   "devDependencies": {
-    "babel": "6.23.0",
+    "babel": "5.8.38",
     "babel-core": "6.26.3",
     "babel-loader": "7.1.4",
     "bootstrap": "4.1.1",
